@@ -3,6 +3,7 @@ RUN apk add --update --no-cache ca-certificates git
 
 WORKDIR /go/src/lecture-app
 ENV GO111MODULE=on
+RUN go get -u github.com/pilu/fresh
 
 COPY go.mod .
 COPY go.sum .
@@ -10,9 +11,6 @@ COPY go.sum .
 RUN go mod download
 COPY . .
 
-RUN CGO_ENABLED=0 go build -o /go/bin/lecture-app
+COPY development/fresh.conf ./
 
-FROM scratch
-COPY --from=build-step /go/bin/lecture-app /go/bin/lecture-app
-
-ENTRYPOINT [ "/go/bin/lecture-app" ]
+ENTRYPOINT [ "fresh" ]

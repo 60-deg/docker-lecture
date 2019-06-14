@@ -1,0 +1,28 @@
+# for development
+
+version: '3'
+services:
+  greeting1:
+    build:
+      context: ..
+      dockerfile: development/Dockerfile
+    volumes:
+      - ../:/go/src/lecture-app
+    restart: always
+    environment:
+      GREETING_MESSAGE: Hello
+      PORT: ':3000'
+    ports:
+      - '3000:3000'
+  greeting2:
+    build:
+      context: ..
+      dockerfile: development/Dockerfile
+    volumes:
+      - ../:/go/src/lecture-app
+    restart: always
+    environment:
+      GREETING_MESSAGE: こんにちは
+      PORT: ':3001'
+    ports:
+      - '3001:3001'
