@@ -8,7 +8,7 @@ COPY go.sum .
 RUN go mod download
 COPY . .
 
-RUN go build -o /go/bin/go-app
+RUN CGO_ENABLED=0 go build -o /go/bin/go-app
 
 FROM scratch
 COPY --from=build-step /go/bin/go-app /go/bin/go-app
