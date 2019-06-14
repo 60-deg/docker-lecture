@@ -7,16 +7,35 @@ services:
       - ./:/go/src/iscogram
     restart: always
     environment:
-      ISUCONP_DB_HOST: localhost
+      ISUCONP_DB_HOST: mysql
       ISUCONP_DB_PORT: 3306
       ISUCONP_DB_USER: root
+      ISUCONP_DB_PASSWORD: password
+      ISUCONP_DB_NAME: isuconp
     ports:
       - '8000:8000'
+    entrypoint: dockerize -timeout 60s -wait tcp://mysql:3306
+    command: ./iscogram
+    depends_on:
+      - mysql
 
   # nginx
-  nginx:
-    image: nginx
-    ports:
-      - '80:80'
+  # nginx:
+  #   image: nginx
+  #   ports:
+  #     - '80:80'
+  #   volumes:
+  #     - ./nginx/conf.d/:/etc/nginx/conf.d
+
+  # mysql
+  mysql:
+    image: mariadb:10.3.9
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: isuconp
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
     volumes:
-      - ./nginx/conf.d/:/etc/nginx/conf.d
+      - '../../init.sql:/docker-entrypoint-initdb.d/init.sql'
+    expose:
+      - '3306'
