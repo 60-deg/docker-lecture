@@ -1,6 +1,7 @@
 version: '3'
 services:
-  greeting:
+  # greetings
+  greeting1:
     build: ./
     volumes:
       - ./:/go/src/lecture-app
@@ -8,6 +9,16 @@ services:
     environment:
       GREETING_MESSAGE: Hello
       PORT: ':3000'
+  greeting2:
+    build: ./
+    volumes:
+      - ./:/go/src/lecture-app
+    restart: always
+    environment:
+      GREETING_MESSAGE: こんにちは
+      PORT: ':3001'
+
+  # nginx
   nginx:
     image: nginx
     ports:

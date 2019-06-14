@@ -1,7 +1,4 @@
-
-server
-tmp
-dump.sql.bz2
+app
 
 # Created by https://www.gitignore.io/api/go
 # Edit at https://www.gitignore.io/?templates=go

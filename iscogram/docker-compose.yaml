@@ -1,0 +1,22 @@
+version: '3'
+services:
+  # iscogram
+  iscogram:
+    build: .
+    volumes:
+      - ./:/go/src/iscogram
+    restart: always
+    environment:
+      ISUCONP_DB_HOST: localhost
+      ISUCONP_DB_PORT: 3306
+      ISUCONP_DB_USER: root
+    ports:
+      - '8000:8000'
+
+  # nginx
+  nginx:
+    image: nginx
+    ports:
+      - '80:80'
+    volumes:
+      - ./nginx/conf.d/:/etc/nginx/conf.d
