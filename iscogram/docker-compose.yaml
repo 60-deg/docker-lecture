@@ -30,12 +30,15 @@ services:
   # mysql
   mysql:
     image: mariadb:10.3.9
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile-Mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: isuconp
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
     volumes:
-      - '../../init.sql:/docker-entrypoint-initdb.d/init.sql'
+      - './init.sql.gz:/docker-entrypoint-initdb.d/init.sql.gz'
     expose:
       - '3306'
