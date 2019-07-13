@@ -3,7 +3,7 @@ dev:
 	docker-compose -f development/docker-compose.yaml up --build
 
 .PHONY: iscogram
-iscogram: iscogram/init.sql.gz
+iscogram:
 	docker-compose -f iscogram/docker-compose.yaml up --build
 	
 iscogram/init.sql.gz:

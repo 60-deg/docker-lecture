@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 services:
   # iscogram
   iscogram:
@@ -13,7 +13,7 @@ services:
       ISUCONP_DB_PASSWORD: password
       ISUCONP_DB_NAME: isuconp
     ports:
-      - '8000:8000'
+      - "8000:8000"
     entrypoint: dockerize -timeout 60s -wait tcp://mysql:3306
     command: ./iscogram
     depends_on:
@@ -39,6 +39,6 @@ services:
       MYSQL_DATABASE: isuconp
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
     volumes:
-      - './init.sql.gz:/docker-entrypoint-initdb.d/init.sql.gz'
+      - "./init-small.sql:/docker-entrypoint-initdb.d/init-small.sql"
     expose:
-      - '3306'
+      - "3306"
